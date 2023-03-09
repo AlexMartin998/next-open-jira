@@ -19,10 +19,10 @@ export interface SidebarProps {}
 const menuItems: string[] = ['Inbox', 'Starred', 'Send Email', 'Drafts'];
 
 const Sidebar: React.FC<SidebarProps> = () => {
-  const { sidemenuOpen } = useUi();
+  const { isSidemenuOpen, closeSideMenu } = useUi();
 
   return (
-    <Drawer anchor="left" open={false} onClose={() => console.log('CLose')}>
+    <Drawer anchor="left" open={isSidemenuOpen} onClose={closeSideMenu}>
       <Box sx={{ width: 250 }}>
         <Box p="5px 10px">
           <Typography variant="h4">Menu</Typography>

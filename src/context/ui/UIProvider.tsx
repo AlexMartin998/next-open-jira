@@ -2,7 +2,7 @@ import { useReducer } from 'react';
 import { UIContext, uiReducer } from './';
 
 export interface UIState {
-  sidemenuOpen: boolean;
+  isSidemenuOpen: boolean;
 }
 
 interface UIProviderProps {
@@ -10,14 +10,25 @@ interface UIProviderProps {
 }
 
 const UI_INIT_STATE: UIState = {
-  sidemenuOpen: false,
+  isSidemenuOpen: false,
 };
 
 export const UIProvider = ({ children }: UIProviderProps) => {
   const [state, dispatch] = useReducer(uiReducer, UI_INIT_STATE);
 
+  const openSideMenu = () => dispatch({ type: 'UI - Open Sidebar' });
+  const closeSideMenu = () => dispatch({ type: 'UI - Close Sidebar' });
+
   return (
-    <UIContext.Provider value={{ sidemenuOpen: false }}>
+    <UIContext.Provider
+      value={{
+        ...state,
+
+        // methods
+        closeSideMenu,
+        openSideMenu,
+      }}
+    >
       {children}
     </UIContext.Provider>
   );
