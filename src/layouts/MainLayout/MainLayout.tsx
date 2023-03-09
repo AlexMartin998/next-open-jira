@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Box } from '@mui/material';
-import { Navbar } from '@/shared/components';
+
+import { Navbar, Sidebar } from '@/shared/components';
 
 export interface MainLayoutProps {
   children: JSX.Element | JSX.Element[];
@@ -20,6 +21,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ title, children }) => {
       </Head>
 
       <Navbar />
+      <Sidebar />
 
       <Box sx={{ p: '10px 20px' }}>{children}</Box>
     </Box>
