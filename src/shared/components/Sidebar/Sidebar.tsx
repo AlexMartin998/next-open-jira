@@ -12,11 +12,15 @@ import {
 import InboxOutlinedIcon from '@mui/icons-material/InboxOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
+import { useUi } from '@/shared/hooks';
+
 export interface SidebarProps {}
 
 const menuItems: string[] = ['Inbox', 'Starred', 'Send Email', 'Drafts'];
 
 const Sidebar: React.FC<SidebarProps> = () => {
+  const { sidemenuOpen } = useUi();
+
   return (
     <Drawer anchor="left" open={false} onClose={() => console.log('CLose')}>
       <Box sx={{ width: 250 }}>
