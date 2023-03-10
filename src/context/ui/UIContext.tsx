@@ -9,6 +9,8 @@ interface UIContextProps {
   closeSideMenu: () => void;
   setIsAddingEntry: (isAdding: boolean) => void;
   toggleIsAddingEntry: () => void;
+  setIsDraggingEntry: (isDragging: boolean) => void;
+  toggleIsDraggingEntry: () => void;
 }
 
 export const UIContext = createContext({} as UIContextProps);
