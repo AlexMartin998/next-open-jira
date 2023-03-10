@@ -8,7 +8,7 @@ import { useEntries, useUi } from '@/context/hooks';
 export interface NewEntryProps {}
 
 interface NEState {
-  addTaskForm: boolean;
+  // addTaskForm: boolean;
   inputValues: string;
   imputTouched: boolean;
 }
