@@ -7,6 +7,7 @@ specifiers:
   '@mui/material': ^5.11.12
   '@types/node': ^18.14.6
   '@types/react': ^18.0.28
+  '@types/uuid': ^9.0.1
   eslint: ^8.35.0
   eslint-config-next: ^13.2.3
   next: 13.2.3
@@ -14,6 +15,7 @@ specifiers:
   react-dom: 18.2.0
   sharp: ^0.31.3
   typescript: ^4.9.5
+  uuid: ^9.0.0
 
 dependencies:
   '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
@@ -24,10 +26,12 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   sharp: 0.31.3
+  uuid: 9.0.0
 
 devDependencies:
   '@types/node': 18.14.6
   '@types/react': 18.0.28
+  '@types/uuid': 9.0.1
   eslint: 8.35.0
   eslint-config-next: 13.2.3_ycpbpc6yetojsgtrx3mwntkhsu
   typescript: 4.9.5
@@ -625,6 +629,10 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+
+  /@types/uuid/9.0.1:
+    resolution: {integrity: sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA==}
+    dev: true
 
   /@typescript-eslint/parser/5.54.1_ycpbpc6yetojsgtrx3mwntkhsu:
     resolution: {integrity: sha512-8zaIXJp/nG9Ff9vQNh7TI+C3nA6q6iIsGJ4B4L6MhZ7mHnTMR4YP5vp2xydmFXIy8rpyIVbNAG44871LMt6ujg==}
@@ -2812,6 +2820,11 @@ packages:
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+    dev: false
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
     dev: false
 
   /which-boxed-primitive/1.0.2:
