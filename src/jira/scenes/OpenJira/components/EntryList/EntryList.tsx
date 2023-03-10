@@ -11,8 +11,8 @@ export interface EntryListProps {
 }
 
 const EntryList: React.FC<EntryListProps> = ({ status }) => {
-  const { entries } = useEntries();
-  const { isDragging } = useUi();
+  const { entries, updateEntry } = useEntries();
+  const { isDragging, setIsDragging } = useUi();
 
   // memorized to change only when entries change, not when it is rerendered
   const entriesByStatus = useMemo(
@@ -25,6 +25,12 @@ const EntryList: React.FC<EntryListProps> = ({ status }) => {
   };
   const onDropEntry = (e: DragEvent) => {
     const id = e.dataTransfer.getData('text'); // text - draggable setData
+
+    const entryToUpd = entries.find(entry => entry._id === id)!;
+    entryToUpd.status = status;
+
+    updateEntry(entryToUpd);
+    setIsDragging(false);
   };
 
   return (
@@ -37,13 +43,14 @@ const EntryList: React.FC<EntryListProps> = ({ status }) => {
     >
       <Paper
         sx={{
-          height: 'calc(100vh - 210px)',
+          height: `${
+            status === 'pending' ? 'calc(100vh - 270px)' : 'calc(100vh - 210px)'
+          }`,
           // overflow: 'scroll',
           backgroundColor: 'transparent',
           p: '6px 15px',
         }}
       >
-        {/* drag */}
         <List sx={{ opacity: isDragging ? 0.2 : 1, transition: 'all .3s' }}>
           {entriesByStatus.map(entry => (
             <EntryCard key={entry._id} entry={entry} />

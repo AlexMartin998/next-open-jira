@@ -14,6 +14,7 @@ export enum UIActionType {
 }
 
 export const uiReducer = (state: UIState, action: UIAction): UIState => {
+  console.log(state, action);
   switch (action.type) {
     case UIActionType.openSidebar:
       return { ...state, isSidemenuOpen: true };

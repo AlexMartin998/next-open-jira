@@ -15,17 +15,15 @@ export interface EntryCardProps {
 }
 
 const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
-  const { toggleIsDragging } = useUi();
+  const { setIsDragging } = useUi();
 
   const onDragStart = (e: DragEvent) => {
     e.dataTransfer.setData('text', entry._id);
-    toggleIsDragging();
-    // doing drag
+    setIsDragging(true);
   };
 
   const onDragEnd = () => {
-    //
-    toggleIsDragging();
+    setIsDragging(false);
   };
 
   return (
