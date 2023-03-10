@@ -17,21 +17,21 @@ const ENTRIES_INIT_STATE: EntriesState = {
     {
       _id: uuidv4(),
       description:
-        'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.',
+        'PENDING: Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.',
       status: EntryStatus.pending,
       createdAt: Date.now(),
     },
     {
       _id: uuidv4(),
       description:
-        "The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout.",
+        "IN PROGRESS: The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout.",
       status: EntryStatus.inProgress,
       createdAt: Date.now() - 1_000_000,
     },
     {
       _id: uuidv4(),
       description:
-        'Until recently, the prevailing view assumed lorem ipsum was born as a nonsense text.',
+        'COMPLETED: Until recently, the prevailing view assumed lorem ipsum was born as a nonsense text.',
       status: EntryStatus.completed,
       createdAt: Date.now() - 100_000,
     },
