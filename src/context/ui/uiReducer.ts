@@ -4,13 +4,13 @@ type UIAction =
   | { type: UIActionType.openSidebar }
   | { type: UIActionType.closeSidebar }
   | { type: UIActionType.setIsAddingEntry; payload: boolean }
-  | { type: UIActionType.setIsDraggingEntry; payload: boolean };
+  | { type: UIActionType.setIsDragging; payload: boolean };
 
 export enum UIActionType {
   openSidebar = '[UI] - Open Sidebar',
   closeSidebar = '[UI] - Close Sidebar',
   setIsAddingEntry = '[UI] - Set is adding entry',
-  setIsDraggingEntry = '[UI] - Set is dragging entry',
+  setIsDragging = '[UI] - Set is dragging',
 }
 
 export const uiReducer = (state: UIState, action: UIAction): UIState => {
@@ -23,7 +23,7 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
     case UIActionType.setIsAddingEntry:
       return { ...state, isAddingEntry: action.payload };
 
-    case UIActionType.setIsDraggingEntry:
+    case UIActionType.setIsDragging:
       return { ...state, isDragging: action.payload };
 
     default:

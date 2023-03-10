@@ -34,12 +34,12 @@ export const UIProvider = ({ children }: UIProviderProps) => {
     });
   };
 
-  const setIsDraggingEntry = (isDragging: boolean) => {
-    dispatch({ type: UIActionType.setIsDraggingEntry, payload: isDragging });
+  const setIsDragging = (isDragging: boolean) => {
+    dispatch({ type: UIActionType.setIsDragging, payload: isDragging });
   };
-  const toggleIsDraggingEntry = () => {
+  const toggleIsDragging = () => {
     dispatch({
-      type: UIActionType.setIsDraggingEntry,
+      type: UIActionType.setIsDragging,
       payload: !state.isDragging,
     });
   };
@@ -56,8 +56,8 @@ export const UIProvider = ({ children }: UIProviderProps) => {
         setIsAddingEntry,
         toggleIsAddingEntry,
 
-        setIsDraggingEntry,
-        toggleIsDraggingEntry,
+        setIsDragging,
+        toggleIsDragging,
       }}
     >
       {children}

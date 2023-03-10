@@ -8,20 +8,24 @@ import {
 } from '@mui/material';
 
 import { Entry } from '@/interfaces';
+import { useUi } from '@/context/hooks';
 
 export interface EntryCardProps {
   entry: Entry;
 }
 
 const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
+  const { toggleIsDragging } = useUi();
+
   const onDragStart = (e: DragEvent) => {
     e.dataTransfer.setData('text', entry._id);
-
+    toggleIsDragging();
     // doing drag
   };
 
   const onDragEnd = () => {
     //
+    toggleIsDragging();
   };
 
   return (
