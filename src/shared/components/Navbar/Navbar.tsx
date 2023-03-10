@@ -1,7 +1,7 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
-import { useUi } from '@/shared/hooks';
+import { useUi } from '@/context/hooks';
 
 export interface NavbarProps {}
 

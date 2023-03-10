@@ -1,7 +1,7 @@
 import { List, Paper } from '@mui/material';
 
 import { EntryCard } from './../';
-import { useEntries } from '@/shared/hooks';
+import { useEntries } from '@/context/hooks';
 import { EntryStatus } from '@/interfaces';
 import { useMemo } from 'react';
 

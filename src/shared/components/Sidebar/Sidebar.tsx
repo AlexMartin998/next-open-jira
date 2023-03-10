@@ -12,7 +12,7 @@ import {
 import InboxOutlinedIcon from '@mui/icons-material/InboxOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
-import { useUi } from '@/shared/hooks';
+import { useUi } from '@/context/hooks';
 
 export interface SidebarProps {}
 

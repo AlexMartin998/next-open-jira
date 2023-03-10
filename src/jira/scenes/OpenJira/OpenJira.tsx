@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, Grid } from '@mui/material';
 
-import { EntryList } from './components';
+import { EntryList, NewEntry } from './components';
 import { EntryStatus } from '@/interfaces';
 
 const OpenJira = () => {
@@ -11,7 +11,7 @@ const OpenJira = () => {
           <CardHeader title="Pending" />
 
           <CardContent>
-            {/* add new task */}
+            <NewEntry />
 
             <EntryList status={EntryStatus.pending} />
           </CardContent>
