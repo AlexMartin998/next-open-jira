@@ -19,14 +19,14 @@ const NewEntry: React.FC<NewEntryProps> = () => {
   const [touched, setTouched] = useState<NEState['imputTouched']>(false);
 
   const { addNewEntry } = useEntries();
-  const { isAddTaskFormOpen, toggleAddTaskForm } = useUi();
+  const { isAddingEntry, toggleIsAddingEntry } = useUi();
 
   const onTextFieldChanges = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const toggleAdding = () => {
-    toggleAddTaskForm();
+    toggleIsAddingEntry();
     setTouched(false);
     setInputValue('');
   };
@@ -40,7 +40,7 @@ const NewEntry: React.FC<NewEntryProps> = () => {
 
   return (
     <Box sx={{ mb: 3, px: '2' }}>
-      {isAddTaskFormOpen ? (
+      {isAddingEntry ? (
         <>
           <TextField
             fullWidth

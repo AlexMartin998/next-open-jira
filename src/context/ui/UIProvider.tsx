@@ -4,7 +4,7 @@ import { UIActionType, UIContext, uiReducer } from './';
 
 export interface UIState {
   isSidemenuOpen: boolean;
-  isAddTaskFormOpen: boolean;
+  isAddingEntry: boolean;
 }
 
 interface UIProviderProps {
@@ -13,7 +13,7 @@ interface UIProviderProps {
 
 const UI_INIT_STATE: UIState = {
   isSidemenuOpen: false,
-  isAddTaskFormOpen: false,
+  isAddingEntry: false,
 };
 
 export const UIProvider = ({ children }: UIProviderProps) => {
@@ -22,12 +22,14 @@ export const UIProvider = ({ children }: UIProviderProps) => {
   const openSideMenu = () => dispatch({ type: UIActionType.openSidebar });
   const closeSideMenu = () => dispatch({ type: UIActionType.closeSidebar });
 
-  const openAddTaskForm = () =>
-    dispatch({ type: UIActionType.openAddTaskForm });
-  const closeAddTaskForm = () =>
-    dispatch({ type: UIActionType.closeAddTaskForm });
-  const toggleAddTaskForm = () => {
-    state.isAddTaskFormOpen ? closeAddTaskForm() : openAddTaskForm();
+  const setIsAddingEntry = (isAdding: boolean) => {
+    dispatch({ type: UIActionType.setIsAddingEntry, payload: isAdding });
+  };
+  const toggleIsAddingEntry = () => {
+    dispatch({
+      type: UIActionType.setIsAddingEntry,
+      payload: !state.isAddingEntry,
+    });
   };
 
   return (
@@ -38,9 +40,9 @@ export const UIProvider = ({ children }: UIProviderProps) => {
         // methods
         closeSideMenu,
         openSideMenu,
-        openAddTaskForm,
-        closeAddTaskForm,
-        toggleAddTaskForm,
+
+        setIsAddingEntry,
+        toggleIsAddingEntry,
       }}
     >
       {children}

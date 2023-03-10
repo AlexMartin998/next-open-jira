@@ -3,14 +3,12 @@ import { UIState } from './';
 type UIAction =
   | { type: UIActionType.openSidebar }
   | { type: UIActionType.closeSidebar }
-  | { type: UIActionType.openAddTaskForm }
-  | { type: UIActionType.closeAddTaskForm };
+  | { type: UIActionType.setIsAddingEntry; payload: boolean };
 
 export enum UIActionType {
   openSidebar = '[UI] - Open Sidebar',
   closeSidebar = '[UI] - Close Sidebar',
-  openAddTaskForm = '[UI] - Open add task form',
-  closeAddTaskForm = '[UI] - Close add task form',
+  setIsAddingEntry = '[UI] - Set is adding entry',
 }
 
 export const uiReducer = (state: UIState, action: UIAction): UIState => {
@@ -20,10 +18,8 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
     case UIActionType.closeSidebar:
       return { ...state, isSidemenuOpen: false };
 
-    case UIActionType.openAddTaskForm:
-      return { ...state, isAddTaskFormOpen: true };
-    case UIActionType.closeAddTaskForm:
-      return { ...state, isAddTaskFormOpen: false };
+    case UIActionType.setIsAddingEntry:
+      return { ...state, isAddingEntry: action.payload };
 
     default:
       return state;
