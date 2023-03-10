@@ -3,7 +3,7 @@ import { Box, Button, TextField } from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import AddIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
-import { useEntries } from '@/context/hooks';
+import { useEntries, useUi } from '@/context/hooks';
 
 export interface NewEntryProps {}
 
@@ -14,18 +14,19 @@ interface NEState {
 }
 
 const NewEntry: React.FC<NewEntryProps> = () => {
-  const [isAdding, setIsAdding] = useState<NEState['addTaskForm']>(false);
+  // const [isAdding, setIsAdding] = useState<NEState['addTaskForm']>(false);
   const [inputValue, setInputValue] = useState<NEState['inputValues']>('');
   const [touched, setTouched] = useState<NEState['imputTouched']>(false);
 
   const { addNewEntry } = useEntries();
+  const { isAddTaskFormOpen, toggleAddTaskForm } = useUi();
 
   const onTextFieldChanges = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const toggleAdding = () => {
-    setIsAdding(!isAdding);
+    toggleAddTaskForm();
     setTouched(false);
     setInputValue('');
   };
@@ -39,7 +40,7 @@ const NewEntry: React.FC<NewEntryProps> = () => {
 
   return (
     <Box sx={{ mb: 3, px: '2' }}>
-      {isAdding ? (
+      {isAddTaskFormOpen ? (
         <>
           <TextField
             fullWidth
