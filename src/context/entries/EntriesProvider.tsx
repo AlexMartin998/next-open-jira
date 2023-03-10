@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { EntriesContext, entriesReducer } from './';
+import { EntriesActionType, EntriesContext, entriesReducer } from './';
 import { Entry, EntryStatus } from '@/interfaces';
 
 export interface EntriesState {
@@ -41,8 +41,26 @@ const ENTRIES_INIT_STATE: EntriesState = {
 export const EntriesProvider = ({ children }: EntriesProviderProps) => {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INIT_STATE);
 
+  const addNewEntry = (description: string) => {
+    const newEntry: Entry = {
+      _id: uuidv4(),
+      description,
+      createdAt: Date.now(),
+      status: EntryStatus.pending,
+    };
+
+    dispatch({ type: EntriesActionType.addEntry, payload: newEntry });
+  };
+
   return (
-    <EntriesContext.Provider value={{ ...state }}>
+    <EntriesContext.Provider
+      value={{
+        ...state,
+
+        // methods
+        addNewEntry,
+      }}
+    >
       {children}
     </EntriesContext.Provider>
   );
