@@ -9,11 +9,25 @@ export function middleware(req: NextRequest) {
 
     const checkMongoIDRegExp = new RegExp('^[0-9a-fA-F]{24}$');
     if (!checkMongoIDRegExp.test(id)) {
-      const url = req.nextUrl.clone();
-      url.pathname = '/api/bad-request';
-      url.search = `?message=${id} is not a valid ID`; // message: bad-req.ts
+      // // // with out any other endpoint: https://nextjs.org/docs/advanced-features/middleware#producing-a-response
+      return new NextResponse(
+        JSON.stringify({ message: `'${id}' is not a valid ID` }),
+        { status: 401, headers: { 'content-type': 'application/json' } }
+      );
 
-      return NextResponse.rewrite(url);
+     /*  // // // with another endpoint for errors  <--  bad-request.ts
+      // const url = req.nextUrl.clone();
+      // url.pathname = '/api/bad-request';
+      // url.search = `?message=${id} is not a valid ID`; // message: bad-req.ts
+      // return NextResponse.rewrite(url);
+
+      // // short way  ▲
+      // return NextResponse.redirect(
+      //   new URL(
+      //     `/api/bad-request?message=${id} is not a valid MongoID`,
+      //     req.url
+      //   )
+      // ); */
     }
   }
 
