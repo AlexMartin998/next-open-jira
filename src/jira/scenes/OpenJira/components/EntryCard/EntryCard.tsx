@@ -1,4 +1,5 @@
 import { DragEvent } from 'react';
+import { useRouter } from 'next/router';
 import {
   Card,
   CardActionArea,
@@ -18,6 +19,8 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
   const { setIsDragging } = useUi();
   const { setActiveEntry } = useEntries();
 
+  const router = useRouter();
+
   const onDragStart = (e: DragEvent) => {
     e.dataTransfer.setData('text', entry._id);
     setIsDragging(true);
@@ -29,8 +32,13 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
     setActiveEntry({} as Entry);
   };
 
+  const handleClick = () => {
+    router.push(`/entries/${entry._id}`);
+  };
+
   return (
     <Card
+      onClick={handleClick}
       sx={{ mb: 1 }}
       // drag events
       draggable

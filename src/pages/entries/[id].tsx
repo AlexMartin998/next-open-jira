@@ -1,24 +1,26 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { GetServerSideProps } from 'next';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import {
   Button,
+  capitalize,
   CardActions,
   CardContent,
   CardHeader,
-  capitalize,
   FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
+  IconButton,
   Radio,
   RadioGroup,
   TextField,
-  IconButton,
 } from '@mui/material';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
+import { Entry, EntryStatus } from '@/interfaces';
 import { MainLayout } from '@/layouts';
-import { EntryStatus } from '@/interfaces';
+import { getEntryByID } from '../../api/db/dbEntries';
 
 const validStatus: EntryStatus[] = [
   EntryStatus.pending,
@@ -31,10 +33,15 @@ interface EPState {
   imputTouched: boolean;
   status: EntryStatus;
 }
+interface EntryPageProps {
+  entry: Entry;
+}
 
-const EntryPage = () => {
-  const [inputValue, setinputValue] = useState<EPState['inputValue']>('');
-  const [status, setStatus] = useState<EPState['status']>(EntryStatus.pending);
+const EntryPage = ({ entry }: EntryPageProps) => {
+  const [inputValue, setinputValue] = useState<EPState['inputValue']>(
+    entry.description
+  );
+  const [status, setStatus] = useState<EPState['status']>(entry.status);
   const [touched, setTouched] = useState<EPState['imputTouched']>(false);
 
   const isNotValid = useMemo(
@@ -52,11 +59,11 @@ const EntryPage = () => {
 
   const onSave = () => {
     if (!inputValue.trim()) return;
-    console.log('SAVE');
+    console.log(inputValue.trim());
   };
 
   return (
-    <MainLayout title="....">
+    <MainLayout title={entry.description.substring(0, 20) + '....'}>
       <Grid container justifyContent="center" sx={{ mt: 2 }}>
         <Grid
           item
@@ -69,7 +76,10 @@ const EntryPage = () => {
             borderRadius: '4px',
           }}
         >
-          <CardHeader title="Entry: " subheader="Created at" />
+          <CardHeader
+            title="Entry: "
+            subheader={`Created at ${entry.createdAt}`}
+          />
 
           <CardContent>
             <TextField
@@ -132,3 +142,32 @@ const EntryPage = () => {
 };
 
 export default EntryPage;
+
+/* 
+
+
+
+
+*/
+
+// // SSR: it runs only in server side
+// - Only if you need to pre-render a page whose data must be fetched at request time
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  // console.log(ctx.params);
+  const { id } = params as { id: string };
+  const entry = await getEntryByID(id);
+  if (!entry)
+    return {
+      redirect: {
+        destination: '/',
+
+        // page exist, allow indexing by google bots
+        permanent: false,
+      },
+    };
+
+  return {
+    // props: { entry: { ...entry, _id: entry._id.toString() } }, // are sent to page FC
+    props: { entry }, // are sent to page FC
+  };
+};

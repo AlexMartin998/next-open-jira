@@ -1,4 +1,5 @@
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import NextLink from 'next/link';
+import { AppBar, IconButton, Link, Toolbar, Typography } from '@mui/material';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
 import { useUi } from '@/context/hooks';
@@ -15,7 +16,14 @@ const Navbar: React.FC<NavbarProps> = () => {
           <MenuOutlinedIcon />
         </IconButton>
 
-        <Typography variant="h6">OpenJira</Typography>
+        <NextLink
+          href="/"
+          passHref
+          style={{ textDecoration: 'none', color: 'inherit' }}
+          // legacyBehavior // to have Link of MUI
+        >
+          <Typography variant="h6">OpenJira</Typography>
+        </NextLink>
       </Toolbar>
     </AppBar>
   );
