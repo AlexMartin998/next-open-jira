@@ -25,6 +25,7 @@ const EntrySchema = new Schema({
       values: ['pending', 'in-progress', 'completed'],
       message: '{VALUE} not allowed',
     },
+    default: 'pending',
     required: [true, 'Status is required!'],
     trim: true,
   },

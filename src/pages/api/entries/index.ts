@@ -11,6 +11,8 @@ export default function handler(
   switch (req.method) {
     case 'GET':
       return getEntries(res);
+    case 'POST':
+      return createEntry(req, res);
 
     default:
       return res.status(400).json({ message: 'Invalid request' });
@@ -24,4 +26,24 @@ const getEntries = async (res: NextApiResponse<HandlerData>) => {
   await db.disconnect();
 
   return res.status(200).json(entries);
+};
+
+const createEntry = async (
+  req: NextApiRequest,
+  res: NextApiResponse<HandlerData>
+) => {
+  const { description = '' } = req.body;
+
+  const newEntry = new EntryModel({ description, createdAt: Date.now() });
+
+  try {
+    await db.connect();
+    await newEntry.save();
+    await db.disconnect();
+
+    return res.status(201).json(newEntry);
+  } catch (error) {
+    await db.disconnect();
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
 };
