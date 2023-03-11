@@ -3,7 +3,7 @@ import { List, Paper } from '@mui/material';
 
 import { EntryCard } from './../';
 import { useEntries, useUi } from '@/context/hooks';
-import { EntryStatus } from '@/interfaces';
+import { Entry, EntryStatus } from '@/interfaces';
 import styles from './EntryList.module.css';
 
 export interface EntryListProps {
@@ -11,7 +11,7 @@ export interface EntryListProps {
 }
 
 const EntryList: React.FC<EntryListProps> = ({ status }) => {
-  const { entries, updateEntry } = useEntries();
+  const { activeEntry, entries, updateEntry, setActiveEntry } = useEntries();
   const { isDragging, setIsDragging } = useUi();
 
   // memorized to change only when entries change, not when it is rerendered
@@ -23,14 +23,15 @@ const EntryList: React.FC<EntryListProps> = ({ status }) => {
   const allowDrop = (e: DragEvent) => {
     e.preventDefault();
   };
-  const onDropEntry = (e: DragEvent) => {
-    const id = e.dataTransfer.getData('text'); // text - draggable setData
+  const onDropEntry = (_e: DragEvent) => {
+    // // get data from DragEvent: get entryId
+    // const id = e.dataTransfer.getData('text'); // text - draggable setData
+    // const entryToUpd = entries.find(entry => entry._id === id)!;
+    activeEntry.status = status;
 
-    const entryToUpd = entries.find(entry => entry._id === id)!;
-    entryToUpd.status = status;
-
-    updateEntry(entryToUpd);
+    updateEntry(activeEntry);
     setIsDragging(false);
+    setActiveEntry({} as Entry);
   };
 
   return (

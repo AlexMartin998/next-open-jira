@@ -7,8 +7,8 @@ import {
   Typography,
 } from '@mui/material';
 
+import { useEntries, useUi } from '@/context/hooks';
 import { Entry } from '@/interfaces';
-import { useUi } from '@/context/hooks';
 
 export interface EntryCardProps {
   entry: Entry;
@@ -16,14 +16,17 @@ export interface EntryCardProps {
 
 const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
   const { setIsDragging } = useUi();
+  const { setActiveEntry } = useEntries();
 
   const onDragStart = (e: DragEvent) => {
     e.dataTransfer.setData('text', entry._id);
     setIsDragging(true);
+    setActiveEntry(entry);
   };
 
   const onDragEnd = () => {
     setIsDragging(false);
+    setActiveEntry({} as Entry);
   };
 
   return (

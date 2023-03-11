@@ -6,6 +6,7 @@ import { Entry, EntryStatus } from '@/interfaces';
 
 export interface EntriesState {
   entries: Entry[];
+  activeEntry: Entry;
 }
 
 interface EntriesProviderProps {
@@ -13,6 +14,8 @@ interface EntriesProviderProps {
 }
 
 const ENTRIES_INIT_STATE: EntriesState = {
+  activeEntry: {} as Entry,
+
   entries: [
     {
       _id: uuidv4(),
@@ -52,6 +55,10 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
     dispatch({ type: EntriesActionType.addEntry, payload: newEntry });
   };
 
+  const setActiveEntry = (entry: Entry) => {
+    dispatch({ type: EntriesActionType.setActiveEntry, payload: entry });
+  };
+
   const updateEntry = (entry: Entry) => {
     dispatch({ type: EntriesActionType.updateEntry, payload: entry });
   };
@@ -63,6 +70,7 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
 
         // methods
         addNewEntry,
+        setActiveEntry,
         updateEntry,
       }}
     >

@@ -4,9 +4,11 @@ import { Entry } from '@/interfaces';
 
 interface EntriesContextProps {
   entries: Entry[];
+  activeEntry: Entry;
 
   // methods
   addNewEntry: (description: string) => void;
+  setActiveEntry: (entry: Entry) => void;
   updateEntry: (entry: Entry) => void;
 }
 
