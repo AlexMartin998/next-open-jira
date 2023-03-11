@@ -15,6 +15,8 @@ export default function handler(
     return res.status(400).json({ message: 'Invalid ID: ' + id });
 
   switch (req.method) {
+    case 'GET':
+      return getEntryByID(req, res);
     case 'PUT':
       return updateEntry(req, res);
 
@@ -22,6 +24,23 @@ export default function handler(
       return res.status(400).json({ message: 'Invalid request' });
   }
 }
+
+const getEntryByID = async (
+  req: NextApiRequest,
+  res: NextApiResponse<HandlerData>
+) => {
+  const { id } = req.query;
+
+  await db.connect();
+  const entry = await EntryModel.findById(id);
+  if (!entry)
+    return res
+      .status(404)
+      .json({ message: `Entry with ID: '${id}' not found` });
+  await db.disconnect();
+
+  res.status(200).json(entry);
+};
 
 const updateEntry = async (
   req: NextApiRequest,
