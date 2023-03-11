@@ -9,7 +9,7 @@ export function middleware(req: NextRequest) {
 
     const checkMongoIDRegExp = new RegExp('^[0-9a-fA-F]{24}$');
     if (!checkMongoIDRegExp.test(id)) {
-      // // // with out any other endpoint: https://nextjs.org/docs/advanced-features/middleware#producing-a-response
+      // // // with out any other endpoint (Producing a Response): https://nextjs.org/docs/advanced-features/middleware#producing-a-response
       return new NextResponse(
         JSON.stringify({ message: `'${id}' is not a valid ID` }),
         { status: 401, headers: { 'content-type': 'application/json' } }
