@@ -22,7 +22,7 @@ const EntrySchema = new Schema({
   status: {
     type: String,
     enum: {
-      values: ['pending', 'in-progress', 'finished'],
+      values: ['pending', 'in-progress', 'completed'],
       message: '{VALUE} not allowed',
     },
     required: [true, 'Status is required!'],

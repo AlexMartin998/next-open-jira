@@ -16,29 +16,7 @@ interface EntriesProviderProps {
 const ENTRIES_INIT_STATE: EntriesState = {
   activeEntry: {} as Entry,
 
-  entries: [
-    {
-      _id: uuidv4(),
-      description:
-        'PENDING: Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.',
-      status: EntryStatus.pending,
-      createdAt: Date.now(),
-    },
-    {
-      _id: uuidv4(),
-      description:
-        "IN PROGRESS: The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout.",
-      status: EntryStatus.inProgress,
-      createdAt: Date.now() - 1_000_000,
-    },
-    {
-      _id: uuidv4(),
-      description:
-        'COMPLETED: Until recently, the prevailing view assumed lorem ipsum was born as a nonsense text.',
-      status: EntryStatus.completed,
-      createdAt: Date.now() - 100_000,
-    },
-  ],
+  entries: [],
 };
 
 export const EntriesProvider = ({ children }: EntriesProviderProps) => {
