@@ -1,9 +1,8 @@
 import { useEffect, useReducer } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
-import { EntriesActionType, EntriesContext, entriesReducer } from './';
-import { Entry, EntryStatus } from '@/interfaces';
 import { entriesAPi } from '@/api/axiosClient';
+import { Entry } from '@/interfaces';
+import { EntriesActionType, EntriesContext, entriesReducer } from './';
 
 export interface EntriesState {
   entries: Entry[];
@@ -16,20 +15,16 @@ interface EntriesProviderProps {
 
 const ENTRIES_INIT_STATE: EntriesState = {
   activeEntry: {} as Entry,
-
   entries: [],
 };
 
 export const EntriesProvider = ({ children }: EntriesProviderProps) => {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INIT_STATE);
 
-  const addNewEntry = (description: string) => {
-    const newEntry: Entry = {
-      _id: uuidv4(),
+  const addNewEntry = async (description: string) => {
+    const { data: newEntry } = await entriesAPi.post<Entry>('/entries', {
       description,
-      createdAt: Date.now(),
-      status: EntryStatus.pending,
-    };
+    });
 
     dispatch({ type: EntriesActionType.addEntry, payload: newEntry });
   };
