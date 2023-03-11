@@ -1,8 +1,9 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { EntriesActionType, EntriesContext, entriesReducer } from './';
 import { Entry, EntryStatus } from '@/interfaces';
+import { entriesAPi } from '@/api/axiosClient';
 
 export interface EntriesState {
   entries: Entry[];
@@ -40,6 +41,14 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
   const updateEntry = (entry: Entry) => {
     dispatch({ type: EntriesActionType.updateEntry, payload: entry });
   };
+
+  const getAllEntries = async () => {
+    const { data } = await entriesAPi.get<Entry[]>('/entries');
+    dispatch({ type: EntriesActionType.getEntries, payload: data });
+  };
+  useEffect(() => {
+    getAllEntries();
+  }, []);
 
   return (
     <EntriesContext.Provider

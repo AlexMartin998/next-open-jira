@@ -4,14 +4,16 @@ import { Entry } from '@/interfaces';
 type EntriesAction =
   | { type: EntriesActionType.addEntry; payload: Entry }
   | { type: EntriesActionType.updateEntryStatus; payload: string }
+  | { type: EntriesActionType.setActiveEntry; payload: Entry }
   | { type: EntriesActionType.updateEntry; payload: Entry }
-  | { type: EntriesActionType.setActiveEntry; payload: Entry };
+  | { type: EntriesActionType.getEntries; payload: Entry[] };
 
 export enum EntriesActionType {
   addEntry = '[Entry] - Add Entry',
   updateEntryStatus = '[Entry] - Update Entry Status',
   updateEntry = '[Entry] - Update Entry',
   setActiveEntry = '[Entry] - Set Active Entry',
+  getEntries = '[Entry] - Get/Refresh entries from back',
 }
 
 export const entriesReducer = (
@@ -40,6 +42,9 @@ export const entriesReducer = (
           return entry;
         }),
       };
+
+    case EntriesActionType.getEntries:
+      return { ...state, entries: [...action.payload] };
 
     default:
       return state;
