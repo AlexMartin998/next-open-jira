@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 
 import { useEntries, useUi } from '@/context/hooks';
+import { dateFn } from '@/shared/utils';
 import { Entry } from '@/interfaces';
 
 export interface EntryCardProps {
@@ -53,7 +54,9 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
         </CardContent>
 
         <CardActions sx={{ display: 'flex', justifyContent: 'end', pr: 2 }}>
-          <Typography variant="body2">30 minutes ago</Typography>
+          <Typography variant="body2">
+            {dateFn.getFormatDistanceToNow(entry.createdAt)}
+          </Typography>
         </CardActions>
       </CardActionArea>
     </Card>

@@ -19,8 +19,9 @@ import {
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 import { MainLayout } from '@/layouts';
-import { getEntryByID } from '../../api/db/dbEntries';
+import { getEntryByID } from '@/api/db';
 import { useEntries } from '@/context/hooks';
+import { dateFn } from '@/shared/utils';
 import { Entry, EntryStatus } from '@/interfaces';
 
 const validStatus: EntryStatus[] = [
@@ -81,7 +82,9 @@ const EntryPage = ({ entry }: EntryPageProps) => {
         >
           <CardHeader
             title="Entry: "
-            subheader={`Created at ${entry.createdAt}`}
+            subheader={`Created ${dateFn.getFormatDistanceToNow(
+              entry.createdAt
+            )}`}
           />
 
           <CardContent>
