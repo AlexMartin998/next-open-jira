@@ -6,7 +6,8 @@ type EntriesAction =
   | { type: EntriesActionType.updateEntryStatus; payload: string }
   | { type: EntriesActionType.setActiveEntry; payload: Entry }
   | { type: EntriesActionType.updateEntry; payload: Entry }
-  | { type: EntriesActionType.getEntries; payload: Entry[] };
+  | { type: EntriesActionType.getEntries; payload: Entry[] }
+  | { type: EntriesActionType.deleteEntry; payload: Entry };
 
 export enum EntriesActionType {
   addEntry = '[Entry] - Add Entry',
@@ -14,6 +15,7 @@ export enum EntriesActionType {
   updateEntry = '[Entry] - Update Entry',
   setActiveEntry = '[Entry] - Set Active Entry',
   getEntries = '[Entry] - Get/Refresh entries from back',
+  deleteEntry = '[Entry] - Delete Entry',
 }
 
 export const entriesReducer = (
@@ -45,6 +47,17 @@ export const entriesReducer = (
 
     case EntriesActionType.getEntries:
       return { ...state, entries: [...action.payload] };
+
+    case EntriesActionType.deleteEntry:
+      return {
+        ...state,
+
+        entries: state.entries.filter(
+          entry => entry._id !== action.payload._id
+        ),
+
+        activeEntry: {} as Entry,
+      };
 
     default:
       return state;

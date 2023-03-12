@@ -40,7 +40,7 @@ interface EntryPageProps {
 }
 
 const EntryPage = ({ entry }: EntryPageProps) => {
-  const { updateEntry } = useEntries();
+  const { updateEntry, setActiveEntry, deleteEntry } = useEntries();
   const [inputValue, setinputValue] = useState<EPState['inputValue']>(
     entry.description
   );
@@ -66,6 +66,11 @@ const EntryPage = ({ entry }: EntryPageProps) => {
 
     updateEntry({ ...entry, description: inputValue.trim(), status }, true);
     navigateToPath('/');
+    setActiveEntry({} as Entry);
+  };
+
+  const onDelete = () => {
+    deleteEntry(entry);
   };
 
   return (
@@ -136,6 +141,7 @@ const EntryPage = ({ entry }: EntryPageProps) => {
       </Grid>
 
       <IconButton
+        onClick={onDelete}
         sx={{
           position: 'fixed',
           bottom: 30,

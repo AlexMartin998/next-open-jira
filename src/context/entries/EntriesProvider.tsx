@@ -71,6 +71,10 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
     getAllEntries();
   }, []);
 
+  const deleteEntry = (entry: Entry) => {
+    dispatch({ type: EntriesActionType.deleteEntry, payload: entry });
+  };
+
   return (
     <EntriesContext.Provider
       value={{
@@ -80,6 +84,7 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
         addNewEntry,
         setActiveEntry,
         updateEntry,
+        deleteEntry,
       }}
     >
       {children}
