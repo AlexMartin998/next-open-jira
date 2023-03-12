@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react';
+import { useSnackbar } from 'notistack';
 
 import { entriesAPi } from '@/api/axiosClient';
 import { Entry } from '@/interfaces';
@@ -21,6 +22,8 @@ const ENTRIES_INIT_STATE: EntriesState = {
 export const EntriesProvider = ({ children }: EntriesProviderProps) => {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INIT_STATE);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const addNewEntry = async (description: string) => {
     const { data: newEntry } = await entriesAPi.post<Entry>('/entries', {
       description,
@@ -33,7 +36,10 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
     dispatch({ type: EntriesActionType.setActiveEntry, payload: entry });
   };
 
-  const updateEntry = async ({ _id, description, status }: Entry) => {
+  const updateEntry = async (
+    { _id, description, status }: Entry,
+    showSnackbar = false
+  ) => {
     try {
       const { data } = await entriesAPi.put<Entry>(`/entries/${_id}`, {
         description,
@@ -41,6 +47,17 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
       });
 
       dispatch({ type: EntriesActionType.updateEntry, payload: data });
+
+      //snackbar
+      showSnackbar &&
+        enqueueSnackbar('Entry updated', {
+          variant: 'success',
+          autoHideDuration: 1500,
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        });
     } catch (error) {
       console.log(error);
     }

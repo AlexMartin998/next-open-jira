@@ -18,9 +18,10 @@ import {
 } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-import { Entry, EntryStatus } from '@/interfaces';
 import { MainLayout } from '@/layouts';
 import { getEntryByID } from '../../api/db/dbEntries';
+import { useEntries } from '@/context/hooks';
+import { Entry, EntryStatus } from '@/interfaces';
 
 const validStatus: EntryStatus[] = [
   EntryStatus.pending,
@@ -38,6 +39,7 @@ interface EntryPageProps {
 }
 
 const EntryPage = ({ entry }: EntryPageProps) => {
+  const { updateEntry } = useEntries();
   const [inputValue, setinputValue] = useState<EPState['inputValue']>(
     entry.description
   );
@@ -59,7 +61,8 @@ const EntryPage = ({ entry }: EntryPageProps) => {
 
   const onSave = () => {
     if (!inputValue.trim()) return;
-    console.log(inputValue.trim());
+
+    updateEntry({ ...entry, description: inputValue.trim(), status }, true);
   };
 
   return (

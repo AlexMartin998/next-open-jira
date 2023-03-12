@@ -9,7 +9,7 @@ interface EntriesContextProps {
   // methods
   addNewEntry: (description: string) => void;
   setActiveEntry: (entry: Entry) => void;
-  updateEntry: (entry: Entry) => void;
+  updateEntry: (entry: Entry, showSnackbar?: boolean) => void;
 }
 
 export const EntriesContext = createContext({} as EntriesContextProps);
