@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from '@mui/material';
 import { useUi } from '@/context/hooks';
-import { useNavigateTo } from '@/shared/utils';
+import { useNavigateTo } from '@/shared/hooks';
 
 export interface AlertDialogProps {
   title: string;

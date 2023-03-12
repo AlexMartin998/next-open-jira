@@ -21,7 +21,8 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { MainLayout } from '@/layouts';
 import { getEntryByID } from '@/api/db';
 import { useEntries, useUi } from '@/context/hooks';
-import { dateFn, useNavigateTo } from '@/shared/utils';
+import { dateFn } from '@/shared/utils';
+import { useNavigateTo } from '@/shared/hooks';
 import { Entry, EntryStatus } from '@/interfaces';
 import { AlertDialog } from '@/shared/components';
 

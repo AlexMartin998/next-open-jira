@@ -8,7 +8,8 @@ import {
 } from '@mui/material';
 
 import { useEntries, useUi } from '@/context/hooks';
-import { dateFn, useNavigateTo } from '@/shared/utils';
+import { dateFn } from '@/shared/utils';
+import { useNavigateTo } from '@/shared/hooks';
 import { Entry } from '@/interfaces';
 
 export interface EntryCardProps {
