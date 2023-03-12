@@ -21,7 +21,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { MainLayout } from '@/layouts';
 import { getEntryByID } from '@/api/db';
 import { useEntries } from '@/context/hooks';
-import { dateFn } from '@/shared/utils';
+import { dateFn, useNavigateTo } from '@/shared/utils';
 import { Entry, EntryStatus } from '@/interfaces';
 
 const validStatus: EntryStatus[] = [
@@ -46,6 +46,7 @@ const EntryPage = ({ entry }: EntryPageProps) => {
   );
   const [status, setStatus] = useState<EPState['status']>(entry.status);
   const [touched, setTouched] = useState<EPState['imputTouched']>(false);
+  const { navigateToPath } = useNavigateTo();
 
   const isNotValid = useMemo(
     () => inputValue.length <= 0 && touched,
@@ -64,6 +65,7 @@ const EntryPage = ({ entry }: EntryPageProps) => {
     if (!inputValue.trim()) return;
 
     updateEntry({ ...entry, description: inputValue.trim(), status }, true);
+    navigateToPath('/');
   };
 
   return (
