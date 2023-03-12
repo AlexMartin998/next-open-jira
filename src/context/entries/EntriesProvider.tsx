@@ -50,7 +50,7 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
 
       //snackbar
       showSnackbar &&
-        enqueueSnackbar('Entry updated', {
+        enqueueSnackbar('Entry successfully updated', {
           variant: 'success',
           autoHideDuration: 1500,
           anchorOrigin: {
@@ -71,8 +71,19 @@ export const EntriesProvider = ({ children }: EntriesProviderProps) => {
     getAllEntries();
   }, []);
 
-  const deleteEntry = (entry: Entry) => {
+  const deleteEntry = async (entry: Entry) => {
+    const { data } = await entriesAPi.delete(`/entries/${entry._id}`);
+
     dispatch({ type: EntriesActionType.deleteEntry, payload: entry });
+
+    enqueueSnackbar(data.message, {
+      variant: 'success',
+      autoHideDuration: 1500,
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'right',
+      },
+    });
   };
 
   return (

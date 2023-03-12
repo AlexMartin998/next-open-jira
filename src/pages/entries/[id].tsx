@@ -66,11 +66,11 @@ const EntryPage = ({ entry }: EntryPageProps) => {
 
     updateEntry({ ...entry, description: inputValue.trim(), status }, true);
     navigateToPath('/');
-    setActiveEntry({} as Entry);
   };
 
   const onDelete = () => {
     deleteEntry(entry);
+    navigateToPath('/');
   };
 
   return (

@@ -1,5 +1,4 @@
 import { DragEvent } from 'react';
-import { useRouter } from 'next/router';
 import {
   Card,
   CardActionArea,
@@ -9,7 +8,7 @@ import {
 } from '@mui/material';
 
 import { useEntries, useUi } from '@/context/hooks';
-import { dateFn } from '@/shared/utils';
+import { dateFn, useNavigateTo } from '@/shared/utils';
 import { Entry } from '@/interfaces';
 
 export interface EntryCardProps {
@@ -19,8 +18,7 @@ export interface EntryCardProps {
 const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
   const { setIsDragging } = useUi();
   const { setActiveEntry } = useEntries();
-
-  const router = useRouter();
+  const { navigateToPath } = useNavigateTo();
 
   const onDragStart = (e: DragEvent) => {
     e.dataTransfer.setData('text', entry._id);
@@ -34,7 +32,7 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
   };
 
   const handleClick = () => {
-    router.push(`/entries/${entry._id}`);
+    navigateToPath(`/entries/${entry._id}`);
   };
 
   return (

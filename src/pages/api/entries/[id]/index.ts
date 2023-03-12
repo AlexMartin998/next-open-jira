@@ -19,6 +19,8 @@ export default function handler(
       return getEntryByID(req, res);
     case 'PUT':
       return updateEntry(req, res);
+    case 'DELETE':
+      return deleteEntry(req, res);
 
     default:
       return res.status(400).json({ message: 'Invalid request' });
@@ -65,6 +67,25 @@ const updateEntry = async (
     await db.disconnect();
 
     res.status(200).json(updatedEntry!);
+  } catch (error) {
+    console.log(error);
+    await db.disconnect();
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+};
+
+const deleteEntry = async (
+  req: NextApiRequest,
+  res: NextApiResponse<HandlerData>
+) => {
+  const { id } = req.query;
+
+  try {
+    await db.connect();
+    await EntryModel.findByIdAndDelete(id);
+    await db.connect();
+
+    return res.status(200).json({ message: 'Entry successfully deleted' });
   } catch (error) {
     console.log(error);
     await db.disconnect();
