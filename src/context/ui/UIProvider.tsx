@@ -6,6 +6,7 @@ export interface UIState {
   isSidemenuOpen: boolean;
   isAddingEntry: boolean;
   isDragging: boolean;
+  isDialogOpen: boolean;
 }
 
 interface UIProviderProps {
@@ -16,6 +17,7 @@ const UI_INIT_STATE: UIState = {
   isSidemenuOpen: false,
   isAddingEntry: false,
   isDragging: false,
+  isDialogOpen: false,
 };
 
 export const UIProvider = ({ children }: UIProviderProps) => {
@@ -44,6 +46,10 @@ export const UIProvider = ({ children }: UIProviderProps) => {
     });
   };
 
+  const setIsDialogOpen = (isDialogOpen: boolean) => {
+    dispatch({ type: UIActionType.setIsDialogOpen, payload: isDialogOpen });
+  };
+
   return (
     <UIContext.Provider
       value={{
@@ -58,6 +64,8 @@ export const UIProvider = ({ children }: UIProviderProps) => {
 
         setIsDragging,
         toggleIsDragging,
+
+        setIsDialogOpen
       }}
     >
       {children}

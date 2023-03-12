@@ -4,17 +4,18 @@ type UIAction =
   | { type: UIActionType.openSidebar }
   | { type: UIActionType.closeSidebar }
   | { type: UIActionType.setIsAddingEntry; payload: boolean }
-  | { type: UIActionType.setIsDragging; payload: boolean };
+  | { type: UIActionType.setIsDragging; payload: boolean }
+  | { type: UIActionType.setIsDialogOpen; payload: boolean };
 
 export enum UIActionType {
   openSidebar = '[UI] - Open Sidebar',
   closeSidebar = '[UI] - Close Sidebar',
   setIsAddingEntry = '[UI] - Set is adding entry',
   setIsDragging = '[UI] - Set is dragging',
+  setIsDialogOpen = '[UI] - Set is dialog open',
 }
 
 export const uiReducer = (state: UIState, action: UIAction): UIState => {
-  console.log(state, action);
   switch (action.type) {
     case UIActionType.openSidebar:
       return { ...state, isSidemenuOpen: true };
@@ -26,6 +27,9 @@ export const uiReducer = (state: UIState, action: UIAction): UIState => {
 
     case UIActionType.setIsDragging:
       return { ...state, isDragging: action.payload };
+
+    case UIActionType.setIsDialogOpen:
+      return { ...state, isDialogOpen: action.payload };
 
     default:
       return state;

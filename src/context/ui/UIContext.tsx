@@ -4,6 +4,7 @@ interface UIContextProps {
   isSidemenuOpen: boolean;
   isAddingEntry: boolean;
   isDragging: boolean;
+  isDialogOpen: boolean;
 
   // methods
   openSideMenu: () => void;
@@ -12,6 +13,7 @@ interface UIContextProps {
   toggleIsAddingEntry: () => void;
   setIsDragging: (isDragging: boolean) => void;
   toggleIsDragging: () => void;
+  setIsDialogOpen: (isDialogOpen: boolean) => void;
 }
 
 export const UIContext = createContext({} as UIContextProps);
