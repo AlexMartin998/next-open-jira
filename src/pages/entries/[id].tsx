@@ -20,9 +20,10 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 import { MainLayout } from '@/layouts';
 import { getEntryByID } from '@/api/db';
-import { useEntries } from '@/context/hooks';
+import { useEntries, useUi } from '@/context/hooks';
 import { dateFn, useNavigateTo } from '@/shared/utils';
 import { Entry, EntryStatus } from '@/interfaces';
+import { AlertDialog } from '@/shared/components';
 
 const validStatus: EntryStatus[] = [
   EntryStatus.pending,
@@ -40,7 +41,8 @@ interface EntryPageProps {
 }
 
 const EntryPage = ({ entry }: EntryPageProps) => {
-  const { updateEntry, setActiveEntry, deleteEntry } = useEntries();
+  const { updateEntry, deleteEntry } = useEntries();
+  const { setIsDialogOpen } = useUi();
   const [inputValue, setinputValue] = useState<EPState['inputValue']>(
     entry.description
   );
@@ -69,8 +71,7 @@ const EntryPage = ({ entry }: EntryPageProps) => {
   };
 
   const onDelete = () => {
-    deleteEntry(entry);
-    navigateToPath('/');
+    setIsDialogOpen(true);
   };
 
   return (
@@ -151,6 +152,13 @@ const EntryPage = ({ entry }: EntryPageProps) => {
       >
         <DeleteOutlineOutlinedIcon />
       </IconButton>
+
+      <AlertDialog
+        title="You&rsquo;re about to delete this entry"
+        description="Some caution message"
+        mainBtnMsg="Delete"
+        actionFn={() => deleteEntry(entry)}
+      />
     </MainLayout>
   );
 };
